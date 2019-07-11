@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <title>Hello, world!</title>
+    <style>
+    
+    
+        .page {
+            border: 1px black solid;
+            padding:10px;
+            height: 95%;
+        }
+        
+        body {
+            height:100%;
+        }
+        
+        html {
+            height:100%;
+        }
+        #nav a {
+            display:inline-block;
+        }
+    </style>
+  </head>
+  <body>
+    <div class='container' style='height:100%'>
+        
+        <nav>
+            <a href="#" data-dest='#home' class='my-nav-link' id="home-link">Home</a> |
+            <a href="#" data-dest='#about-us' class='my-nav-link' id="about-link">About</a> |
+            <a href="#" data-dest="#our-products" class='my-nav-link'>Our Products</a> |
+            <a href="#" data-dest='#contact-us' class='my-nav-link' id="contact-link">Contact</a>
+      
+        </nav>
+        
+        <div id='home' class='page'>
+            <h1>Home Page</h1>
+            <p>Welcome to my home page</p>
+        </div>
+        
+        <div id='about-us' class='page'>
+            <h1>About Us</h1>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut congue lectus. Nunc pellentesque euismod tincidunt. Praesent interdum, lorem nec condimentum posuere, lectus felis aliquet odio, ac lobortis elit ante nec est. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut vulputate urna ac eros porttitor faucibus. Mauris molestie mollis iaculis. Sed quis eros ac justo elementum lacinia. Cras consequat nulla augue, ac lobortis magna pulvinar vitae. Duis ante neque, facilisis et ligula id, convallis dictum dolor. Vivamus ac venenatis magna. Nullam in dictum neque. 
+            </p>
+        </div>
+        
+        <div id='our-products' class='page'>
+            <h1>Our Products</h1>
+        </div>
+        
+        <div id="contact-us" class='page'>
+            <h1>Contact Us</h1>
+        </div>
+        
+    
+        
+        <div id="footer">
+            (c) Paul from TGC
+        </div>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script>
+        $(function(){
+            $('.page').hide();
+            $('#home').show();
+            
+            $(".my-nav-link").click(function(event){
+                event.preventDefault();
+                $('.page').hide();
+                let dest = $(this).data('dest');
+                $(dest).show();
+            })
+            
+          
+        })
+    </script> 
+  </body>
+</html>
