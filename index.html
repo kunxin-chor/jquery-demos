@@ -11,12 +11,59 @@
     <title>Hello, world!</title>
   </head>
   <body>
-    <h1>Hello, world!</h1>
+    <div class='container'>
+        
+        <nav>
+            <a href="#" id="home-link">Home</a> |
+            <a href="#" id="about-link">About</a> |
+            <a href="#" id="contact-link">Contact</a>
+        </nav>
+        
+        <div id='home'>
+            <h1>Home Page</h1>
+        </div>
+        
+        <div id='about-us'>
+            <h1>About Us</h1>
+        </div>
+        
+        <div id="contact-us">
+            <h1>Contact Us</h1>
+        </div>
+        
+    </div>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script>
+        $(function(){
+            $("#about-us").hide();
+            $("#contact-us").hide();
+            
+            $("#about-link").click(function(event){
+                event.preventDefault();
+                $("#home").hide();
+                $('#contact-us').hide();
+                $('#about-us').show();
+            })
+            
+            $("#contact-link").click(function(event){
+                event.preventDefault();
+                $("#home").hide();
+                $('#about-us').hide();
+                $('#contact-us').show();
+            })
+            
+            $("#home-link").click(function(event){
+                event.preventDefault();
+                $("#contact-us").hide();
+                $('#about-us').hide();
+                $('#home').show();
+            })
+        })
+    </script> 
   </body>
 </html>
