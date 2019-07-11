@@ -69,19 +69,22 @@
             
             $("#about-link").click(function(event){
                 event.preventDefault();
-                $('.page').hide();
+                $("#home").hide();
+                $('#contact-us').hide();
                 $('#about-us').show();
             })
             
             $("#contact-link").click(function(event){
                 event.preventDefault();
-                $('.page').hide();
+                $("#home").hide();
+                $('#about-us').hide();
                 $('#contact-us').show();
             })
             
             $("#home-link").click(function(event){
                 event.preventDefault();
-                $('.page').hide();
+                $("#contact-us").hide();
+                $('#about-us').hide();
                 $('#home').show();
             })
         })
