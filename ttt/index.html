@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <title>Hello, world!</title>
+    <style>
+        .square {
+            height:100px;
+            width:100px;
+            border:1px black solid;
+            text-align:center;
+            font-size:32px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class='container'>
+        <table>
+            <tr>
+                <td data-num='0' class='square'></td>
+                <td data-num='1' class='square'></td>
+                <td data-num='2' class='square'></td>
+            </tr>
+            <tr>
+                <td data-num='3' class='square'></td>
+                <td data-num='4' class='square'></td>
+                <td data-num='5' class='square'></td>
+            </tr>
+            <tr>
+                <td data-num='6' class='square'></td>
+                <td data-num='7' class='square'></td>
+                <td data-num='8' class='square'></td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script>
+        let board = [];
+        
+         // ENUMERATION OF ALL POSSIBLE STATES
+        let EMPTY = 0;
+        let X = 1;
+        let O = 2;
+        
+        // USE A VARIABLE TO KEEP TRACK OF THE CURRENT STATE
+        let current_player = X;
+   
+        for (let i=0; i < 9; i++) {
+            board[i] = EMPTY;
+        }
+        
+        $(function(){
+            $('.square').click(function(){
+                let number = $(this).data('num');
+                board[number] = current_player;
+                console.log(board);
+                if (current_player == X) {
+                    $(this).html('X');
+                } else {
+                    $(this).html('O');
+                }
+           
+                
+                if (current_player == X) {
+                    current_player = O;
+                } else {
+                    current_player = X;
+                }
+            })
+        })
+    </script>
+</body>
+
+</html>

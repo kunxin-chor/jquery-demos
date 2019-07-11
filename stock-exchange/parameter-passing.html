@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <title>Hello, world!</title>
+  </head>
+  <body>
+      <div class='container'>
+           <h1>Hello, world!</h1>
+           <input type='text' id='stock-symbol' plaeholder='Enter stock symbol'/>
+           <button id='update'>Update</button>
+           <table id='stock-info' class='table'>
+               <tr>
+                   <th>Date/Time</th>
+                   <th>Value</th>
+               </tr>
+               <tr class='data-row'>
+                   <td colspan='2'>
+                       Waiting, loading data....
+                       
+<i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw"></i>
+<span class="sr-only">Loading...</span>      
+                   </td>
+                   
+               </tr>
+           </table>
+      </div>
+  
+    
+    
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.js"></script>
+    <script>
+       let endpoint = "https://www.alphavantage.co/query";
+      
+       // global variable
+       let stock_symbol = 'MSFT';
+       
+       // DATA SOURCE FUNCTION
+       function getStockDataAsync(symbol, consumerCallback){
+           // object in JavaScript functions like dictionaries in Pythons
+           let parameters = {
+               'function': 'TIME_SERIES_INTRADAY',
+               'symbol': symbol,
+               'interval': '1min',
+               'apikey': 'RV76S9OYG1OF0XEU'
+           }
+           axios.get(endpoint, {
+               params: parameters
+           }).then(function(response){
+               console.log(response.data["Time Series (1min)"]);
+               let data = response.data["Time Series (1min)"];
+               consumerCallback(data);
+           })
+       }
+       
+       // CONSUMER FUNCTION
+       function drawTable(data)
+       {
+           $('.data-row').empty();
+           for (let key in data)
+           {
+               let datapoint = data[key];
+               console.log(datapoint);
+               
+               $("#stock-info")
+                .append(`
+                <tr class='data-row'><td>${key}</td>
+                  <td>${datapoint['1. open']}</td>
+                  </tr>
+                `)
+                
+           }
+       }
+      
+      $(function(){
+          getStockDataAsync(drawTable);
+          setInterval(function(){
+               getStockDataAsync(stock_symbol, drawTable); 
+          }, 30000);
+          
+          $('#update').click(function(){
+              stock_symbol = $('#stock-symbol').val();
+              getStockDataAsync(stock_symbol, drawTable);
+          })
+          
+      }) 
+  
+    </script>
+  </body>
+</html>
