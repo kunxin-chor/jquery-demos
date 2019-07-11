@@ -9,9 +9,26 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
     <title>Hello, world!</title>
+    <style>
+    
+    
+        .page {
+            border: 1px black solid;
+            padding:10px;
+            height: 95%;
+        }
+        
+        body {
+            height:100%;
+        }
+        
+        html {
+            height:100%;
+        }
+    </style>
   </head>
   <body>
-    <div class='container'>
+    <div class='container' style='height:100%'>
         
         <nav>
             <a href="#" id="home-link">Home</a> |
@@ -19,18 +36,25 @@
             <a href="#" id="contact-link">Contact</a>
         </nav>
         
-        <div id='home'>
+        <div id='home' class='page'>
             <h1>Home Page</h1>
+            <p>Welcome to my home page</p>
         </div>
         
-        <div id='about-us'>
+        <div id='about-us' class='page'>
             <h1>About Us</h1>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut congue lectus. Nunc pellentesque euismod tincidunt. Praesent interdum, lorem nec condimentum posuere, lectus felis aliquet odio, ac lobortis elit ante nec est. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut vulputate urna ac eros porttitor faucibus. Mauris molestie mollis iaculis. Sed quis eros ac justo elementum lacinia. Cras consequat nulla augue, ac lobortis magna pulvinar vitae. Duis ante neque, facilisis et ligula id, convallis dictum dolor. Vivamus ac venenatis magna. Nullam in dictum neque. 
+            </p>
         </div>
         
-        <div id="contact-us">
+        <div id="contact-us" class='page'>
             <h1>Contact Us</h1>
         </div>
         
+        <div id="footer">
+            (c) Paul from TGC
+        </div>
     </div>
 
     <!-- Optional JavaScript -->
