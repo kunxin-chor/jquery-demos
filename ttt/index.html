@@ -55,6 +55,12 @@
         let X = 1;
         let O = 2;
         
+        // let board = [
+        //     [EMPTY, EMPTY, EMPTY],
+        //     [EMPTY, EMPTY, EMPTY],
+        //     [EMPTY, EMPTY, EMPTY]
+        // ];
+        
         // USE A VARIABLE TO KEEP TRACK OF THE CURRENT STATE
         let current_player = X;
    
@@ -79,7 +85,21 @@
                 } else {
                     current_player = X;
                 }
+                
+                checkVictoryInRows();
+                
             })
+            
+            function checkVictoryInRows()
+            {
+                for (let i=0; i < 9; i=i+3)
+                {
+                    if (board[i] != EMPTY && board[i] == board[i+1] 
+                      && board[i] == board[i+2]) {
+                        alert(board[i] + " has won!")
+                    }
+                }
+            }
         })
     </script>
 </body>
