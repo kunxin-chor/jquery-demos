@@ -34,8 +34,11 @@ function getEarthquakeDataAsync(consumer, config) {
     axios.get(endpoint, {
         'params': parameters
     }).then((response) => {
+        $('#display-error').hide();
         console.log(response.data);
         consumer(response.data.features)
+    }).catch(function(error){
+       $("#display-error").show();
     })
 
     /* axios.get(endpoint, params: {
@@ -112,6 +115,9 @@ let showEarthquakes = (each_earthquake, index) => {
 }
 
 $(function() {
+    
+    $('#display-error').hide();
+    
     getEarthquakeDataAsync(consumeEarthquakeData, params);
 
     $('#update-btn').click(function(){
