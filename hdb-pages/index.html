@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <title>Hello, world!</title>
+  </head>
+  <body>
+    <div class='container-fluid'>
+        <table class='table'>
+            <thead>
+                <tr>
+                    <th>
+                        Town
+                    </th>
+                    <th>
+                        Block
+                    </th>
+                    <th>
+                        Model
+                    </th>
+                    <th>
+                        Resale Price
+                    </th>
+                </tr>
+            </thead>
+            <tbody id='data-container'>
+                
+            </tbody>
+        </table>
+        <div>
+            Showing record# <span id='current-start'></span> to <span id='current-end'></span>
+            </span>of <span id='total'></span>
+        </div>
+        <button class='btn btn-primary' id='previous'>Previous</button>
+        <button class='btn btn-primary' id='next'>Next</button>
+        <div id='page-links'>
+             
+        </div>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.js"></script>
+    <script>
+    let endpoint = 'https://data.gov.sg/api/action/datastore_search?resource_id=42ff9cfe-abe5-4b54-beda-c88f9bb438ee'
+    let params = {
+        'offset': 0,
+        'limit': 100
+    }
+    let total=0;
+    function getHDBDataAysnc(consumer)
+    {
+        axios.get(endpoint, {
+            'params': params
+        }).then(function(response){
+            console.log(response.data);
+            total = response.data.result.total;
+         
+            // if there is a consumer function, use it
+            if (consumer) {
+                consumer(response.data.result.records);
+            }
+        })
+    }
+    
+    function consumeHDBData(data)
+    {
+        // remove all existing data
+        $("#data-container").empty();
+        
+        for (let d of data)
+        {
+            $('#data-container').append(`
+                <tr>
+                  <td>${d.town}</td>
+                  <td>${d.block}</td>
+                  <td>${d.flat_model}</td>
+                  <td>${d.resale_price}</td>
+                </tr>
+            `)
+        }
+    }
+    
+    $(function(){
+      
+        // Use a higher order function here
+          getHDBDataAysnc(function(data){
+              consumeHDBData(data);
+              updateRecordRange();
+              updatePagesLinks();
+             
+          });
+        
+        $('#previous').hide();
+        
+        $('#next').click(function(){
+            params.offset = params.offset + params.limit;
+            getHDBDataAysnc(consumeHDBData);
+            
+            $('#previous').show();
+            
+            updateRecordRange();
+        });
+        
+        $('#previous').click(function(){
+            params.offset = params.offset - params.limit;
+            getHDBDataAysnc(consumeHDBData);
+            
+            updateRecordRange();
+        });
+        
+        //  $('#page-links a').click(function(){
+        //         alert("Going to page")
+        // })
+        
+        
+        // DELEGATE - We use this for dynamic elements
+        $('#page-links').on('click', 'a', function(){
+            let offset = $(this).data('offset');
+            params.offset = offset;
+            getHDBDataAysnc(function(data){
+              consumeHDBData(data);
+              updateRecordRange();
+              updatePagesLinks();
+             
+          });
+            
+        })
+        
+        function updateRecordRange()
+        {
+            let current_start = params.offset;
+            let current_end = params.offset + params.limit;
+            $("#current-start").html(current_start + 1);
+            $('#current-end').html(current_end);
+
+            $('#total').html(total)
+            
+        }
+        
+        function updatePagesLinks()
+        {
+            let totalPages = Math.ceil( total / params.limit );
+            for (let i = 0; i < totalPages; i++)
+            {
+                let html = `
+                    <a href='#' data-offset='${i*params.limit}'>${i+1}</a>
+                `
+                $('#page-links').append(html);
+            }
+        }
+        
+      
+    })
+    
+    </script>  
+  
+  </body>
+</html>
