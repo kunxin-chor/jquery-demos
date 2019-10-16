@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.js"></script>
+    <script>
+        let apiKey = 'p1vESiYBSqy3V4yXZN4R+Q==';
+        let endpoint = 'http://cors-anywhere.herokuapp.com/http://datamall2.mytransport.sg/ltaodataservice/ERPRates';
+        function getDataAsync()
+        {
+            axios.get(endpoint, {
+                header: {
+                    'AccountKey':apiKey,
+                    'accept':'application/json'
+                }
+            }).then(function (response){
+                console.log(response.data)
+            })
+        }
+    </script>
+</body>
+</html>
